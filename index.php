@@ -15,17 +15,13 @@ $allCountries = $common->Fetch_All_Countries($connection);
 
     <!-- Custom Css  -->
     <link href="<?=$_ENV['APP_URL'];?>/assets/css/app.css " rel="stylesheet" >
-    <!-- Waiting Css  -->
-    <link href="<?=$_ENV['APP_URL'];?>/assets/plugins/waitMe/css/waitMe.css" rel="stylesheet" >
-    <link href="<?=$_ENV['APP_URL'];?>/assets/plugins/waitMe/css/waitMe.min.css" rel="stylesheet" >
-
+    <!-- Fnon  Css  -->
+    <link href="<?=$_ENV['APP_URL'];?>/assets/plugins/Fnon/css/fnon.min.css" rel="stylesheet" >
     <title>Hello, world!</title>
   </head>
   <body>
     <div class="container" id="container">
-    <div class="alert alert-success" role="alert">
-  A simple success alert—check it out!
-</div>
+   
   <form method ="POST" id ="form_submition" enctype="multipart/form-data">
     <h2>Contact Us</h2>
     <div class="row">
@@ -129,7 +125,7 @@ $allCountries = $common->Fetch_All_Countries($connection);
                 you can select files from different folders
             </li>
         </ul>
-
+            <span id= "image_priew_errors"></span>
         <div class="form-group mt-5">
           <label for="">Choose Images</label>
           <input type="file" class="form-control" name="images[]" multiple id="upload-img"  id="images-error-field"/>
@@ -145,11 +141,13 @@ $allCountries = $common->Fetch_All_Countries($connection);
     <!--  Jquery Script Cdn End  -->
     <script src="<?=$_ENV['APP_URL'];?>/vendor/axllent/jquery/jquery.min.js"></script>
 
-     <!--  Waiting Loader  Cdn End  -->
-    <script src="<?=$_ENV['APP_URL'];?>/assets/plugins/waitMe/js/waitMe.js"></script>
-    <script src="<?=$_ENV['APP_URL'];?>/assets/plugins/waitMe/js/waitMe.min.js"></script>
+     <!-- Fnon ALert -->
+    <script src="<?=$_ENV['APP_URL'];?>/assets/plugins/Fnon/js/fnon.min.js"></script>
+  
     <!-- Custome Script Here -->
     <script src="<?=$_ENV['APP_URL'];?>/assets/js/app.js"></script>
-    <!-- <script src="<?=$_ENV['APP_URL'];?>/assets/js/function.js"></script> -->
+    
+  
+    
   </body>
 </html>

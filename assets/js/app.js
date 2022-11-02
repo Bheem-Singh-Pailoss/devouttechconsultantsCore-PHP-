@@ -47,6 +47,7 @@ $("#form_submition").submit(function (e) {
             run_waitMe($('#container > form'), 1, 'ios');
         }, success: function (data) {
             // console.log(data.status);
+            
             if (data.status == 'false') {
                 // console.log(data.errors);
                 var errors = data.errors;
@@ -57,6 +58,7 @@ $("#form_submition").submit(function (e) {
                 });
             } else {
                 var message = data.message;
+                
 
 
             }
@@ -90,8 +92,16 @@ function previewImgs(event) {
     if (!!totalFiles) {
         imgPreview.classList.remove('img-thumbs-hidden');
     }
-
+var image_list  = ['jpg','jpeg','png'];
     for (var i = 0; i < totalFiles; i++) {
+        var type =event.target.files[i].type.split('/')[0];
+        console.log(type);
+        var extention =event.target.files[i].type.split('/')[1];
+        console.log(extention);
+        if (type == '' ||extention =='undefined' ) {
+            $('#image_priew_errors').text('Please Add the Correct image Formet');
+        }else if (type == 'image') {
+            if ($.inArray(extention, image_list) >= 0) {
         wrapper = document.createElement('div');
         wrapper.classList.add('wrapper-thumb');
         removeBtn = document.createElement("span");
@@ -104,15 +114,42 @@ function previewImgs(event) {
         wrapper.appendChild(img);
         wrapper.appendChild(removeBtn);
         imgPreview.appendChild(wrapper);
-
-        $('.remove-btn').click(function () {
+          $('.remove-btn').click(function () {
             $(this).parent('.wrapper-thumb').remove();
         });
+            } else {
+                Fnon.Hint.Danger('Allowed only files with extension (jpg, png)',{
+                    position: 'right-top',
+                    fontSize: '14px',
+                    width: '300px',
+                    title:'Image Error ',
+                    callback:function(){
+                      //do something
+                    }
+                });
+            }
+        }else{
+            $('#image_priew_errors').text('');
+            Fnon.Hint.Danger('Please Select Vaid Image Formet',{
+                position: 'right-top',
+                fontSize: '14px',
+                width: '300px',
+                title:'Image Error ',
+                callback:function(){
+                  //do something
+                }
+            });
+        }
+       
+      
+
+      
 
     }
 
 
 }
+
 
 // Function Used In Jqueru 
 
