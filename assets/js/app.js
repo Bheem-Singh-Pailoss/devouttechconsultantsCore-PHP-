@@ -27,42 +27,8 @@ $(function () {
 
 
 
-});
-
-// 
-$("#form_submition").submit(function (e) {
-    e.preventDefault();
-    $.ajax({
-        type: "POST",
-        url: "ajex_call.php",
-        contentType: false,
-        data: new FormData(this),
-        cache: false,
-        processData: false,
-        dataType: 'json',
-        beforeSend: function () {
-            run_waitMe($('#container > form'), 1, 'ios');
-        }, success: function (data) {
-            if (data.status == 'false') {
-                var errors = data.errors;
-                console.log(errors);
-                $.each(errors, function (index, value) {
-                    $("#" + index + "-error").text(value);
-                });
-            } else {
-                var message = data.message;
-            }
-        }, error: function (xhr) {
-
-        },
-        complete: function () {
-            $('#container > form').waitMe('hide');
-        }
-    });
 
 });
-
-
 
 var imgUpload = document.getElementById('upload-img')
     , imgPreview = document.getElementById('img-preview')
@@ -78,7 +44,7 @@ imgUpload.addEventListener('change', previewImgs, true);
 // Image Functionaly Function 
 
 function previewImgs(event) {
-    $("#img-preview").html("")
+    imgPreview.html("")
     var file_target = event.target.files;
     var image_leangh = file_target.length;
     var fileName;
@@ -86,54 +52,21 @@ function previewImgs(event) {
     var notvalidate = false;
     var fileName = ''; var fileSize = ''; var fileType = ''; var fileextention = '';
     if (!!image_leangh) {
-        imgPreview.classList.remove('img-thumbs-hidden');
         for (let i = 0; i < image_leangh; i++) {
-            fileSize = file_target[i].size;
             fileName = event.target.files[i].name;
             fileType = file_target[i].type.split('/')[0];
             totalsize += Number(event.target.files[i].size);
             let maxsize = 5 * 1024 * 1024; //10Mb
-            console.log(totalsize);
             fileextention = file_target[i].type.split('/')[1];
-            console.log(fileextention);
             if (fileType == '' || fileextention == 'undefined') {
-                $('#upload-img').val('');
-                Fnon.Hint.Danger('Please Add the Correct image Formet', {
-                    position: 'right-top',
-                    fontSize: '14px',
-                    width: '300px',
-                    title: 'Image Error ',
-                    callback: function () {
-                        //do something
-                    }
-                });
-
-            } 
-           
-            else  if (validate_fileExtension(fileName) === false) {
-                
-                $('#upload-img').val('');
-                Fnon.Hint.Danger('Allowed only files with extension (jpg, png)', {
-                    position: 'right-top',
-                    fontSize: '14px',
-                    width: '300px',
-                    title: 'Image Error ',
-                    callback: function () {
-                        //do something
-                    }
-                });
+                imgUpload.val('');
+                fnon_alert('Please Choose image');
+            }  else  if (validate_fileExtension(fileName) === false) {
+                imgUpload.val('');
+                fnon_alert('Choose Only image Formet');
             } else if (totalsize > maxsize && notvalidate === false) {
-                $('#upload-img').val('');
-                Fnon.Hint.Danger('The Size of Image Must be 5mb)', {
-                    position: 'right-top',
-                    fontSize: '14px',
-                    width: '300px',
-                    title: 'Image Error ',
-                    callback: function () {
-                        //do something
-                    }
-                });
-
+                imgUpload.val('');
+                fnon_alert('Image Shoud be atleast 5 mb');
             } else {
                 wrapper = document.createElement('div');
                 wrapper.classList.add('wrapper-thumb');
@@ -163,6 +96,10 @@ function previewImgs(event) {
 
 }
 
+
+function fnon_alert(msg) {
+    Fnon.Hint.Danger(msg, { position: 'right-top', fontSize: '14px', width: '300px' });
+}
 function validate_fileExtension(fileName) {
     let image_extensions = new Array("bmp", "jpg", "jpeg", "jpe", "jfif", "png");
     let allowed_extensions = image_extensions;
@@ -170,7 +107,7 @@ function validate_fileExtension(fileName) {
 
     for (let i = 0; i <= allowed_extensions.length; i++) {
         if (allowed_extensions[i] == file_extension) {
-            return true; 
+            return true;
         }
     }
     return false;
