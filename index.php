@@ -128,7 +128,7 @@ $allCountries = $common->Fetch_All_Countries($connection);
             <span id= "image_priew_errors"></span>
         <div class="form-group mt-5">
           <label for="">Choose Images</label>
-          <input type="file" class="form-control" name="images[]" multiple id="upload-img"  id="images-error-field"/>
+          <input type="file" class="form-control" name="images[]" multiple id="upload-img" />
         </div>
         <span class="text-danger" id ="images-error"></span>
         <div class="img-thumbs img-thumbs-hidden" id="img-preview"></div>
